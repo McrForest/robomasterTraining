@@ -2,13 +2,13 @@
 #define TJURM_TEST_INCLUDE_TESTS_H_
 
 // 练习1，实现库函数strlen
-int my_strlen(char *str);
+int my_strlen(const char *str);
 
 // 练习2，实现库函数strcat
-void my_strcat(char *str_1, char *str_2);
+char* my_strcat(char *str_1, const char *str_2);
 
 // 练习3，实现库函数strstr
-char* my_strstr(char *s, char *p);
+char* my_strstr(const char *s, const char *p);
 
 // 练习4，将彩色图片(rgb)转化为灰度图片
 void rgb2gray(float *in, float *out, int h, int w);

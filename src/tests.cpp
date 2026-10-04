@@ -1,7 +1,7 @@
-#include "tests.h"
+#include "../include/tests.h"
 
 // 练习1，实现库函数strlen
-int my_strlen(char *str) {
+int my_strlen(const char *str) {
     /**
      * 统计字符串的长度，太简单了。
      */
@@ -24,13 +24,13 @@ int my_strlen(char *str) {
 
     // IMPLEMENT YOUR CODE HERE
     char* my_strcat(char *dest, const char *src) {
-    // 第一步：找到 dest 的结尾（'\0' 的位置）
+    // 找到 dest 的结尾'\0' 的位置
         long long i = 0;
         while (dest[i] != '\0') {
             i++;
         }
 
-    // 第二步：把 src 逐个字符拷过去
+    // 把 src 逐个字符拷过去
         int j = 0;
         while (src[j] != '\0') {
             dest[i] = src[j];
@@ -38,16 +38,16 @@ int my_strlen(char *str) {
             j++;
         }
 
-    // 第三步：手动补上结束符
+    // 补上结束符
         dest[i] = '\0';
-
+    // 指针进，指针出
         return dest;
     }
 
 
 
 // 练习3，实现库函数strstr
-char* my_strstr(char *s, char *p) {
+char* my_strstr(const char *s, const char *p) {
     /**
      * 在字符串s中搜索字符串p，如果存在就返回第一次找到的地址，不存在就返回空指针(0)。
      * 例如：
@@ -62,7 +62,7 @@ char* my_strstr(char *s, char *p) {
         int j = 0;
         while (s[i + j] != '\0' && p[j] != '\0') {
             if (s[i + j] != p[j]) {
-                break;  // 有一个字符不匹配，放弃这次尝试
+                break;  // 若有一个字符不匹配，放弃这次尝试
             }
             j++;
         }
@@ -143,15 +143,14 @@ void rgb2gray(float *in, float *out, int h, int w) {
     // 遍历每一行每一列的像素
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            // 彩色图片在内存中按 R G B R G B ... 存储
-            // 像素 (i, j) 的 R 分量在索引 (i * w + j) * 3 处
+            // 定位整个数组中像素（i，j）的 R G B 分量
             int idx = (i * w + j) * 3;
             float R = in[idx];
             float G = in[idx + 1];
             float B = in[idx + 2];
-            // 利用公式 V = 0.1140 * B + 0.5870 * G + 0.2989 * R 计算灰度值
+            // 利用公式计算灰度值
             float V = 0.1140 * B + 0.5870 * G + 0.2989 * R;
-            // 写入灰度图片，灰度图每个像素只占一个位置
+            // 写入灰度图片数组
             out[i * w + j] = V;
         }
     }
@@ -339,7 +338,7 @@ void hist_eq(float *in, int h, int w) {
         }
     }
 
-    // 2. 计算累积分布函数(CDF)
+    // 2. 计算累积分布函数
     int cdf[256] = {0};
     cdf[0] = hist[0];
     for (int k = 1; k < 256; k++) {
