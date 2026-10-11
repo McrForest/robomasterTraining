@@ -282,12 +282,12 @@ void resize(float *in, float *out, int h, int w, int c, float scale) {
             // 4. 对每个通道分别进行双线性插值
             for (int ch = 0; ch < c; ch++) {
                 // 获取四个邻居像素的值
-                // P1 = (x1, y2) 左上角, P2 = (x2, y2) 右上角
-                // P3 = (x1, y1) 左下角, P4 = (x2, y1) 右下角
-                float P1 = in[(y2 * w + x1) * c + ch];
-                float P2 = in[(y2 * w + x2) * c + ch];
-                float P3 = in[(y1 * w + x1) * c + ch];
-                float P4 = in[(y1 * w + x2) * c + ch];
+                // P1 = (x1, y1) 左上角, P2 = (x2, y1) 右上角
+                // P3 = (x1, y2) 左下角, P4 = (x2, y2) 右下角
+                float P1 = in[(y1 * w + x1) * c + ch];
+                float P2 = in[(y1 * w + x2) * c + ch];
+                float P3 = in[(y2 * w + x1) * c + ch];
+                float P4 = in[(y2 * w + x2) * c + ch];
 
                 // 双线性插值公式
                 float Q = P1 * (1 - dx) * (1 - dy)
